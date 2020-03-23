@@ -1,4 +1,10 @@
 {
   "item.examplemod.bomb_item": "Bomb item",
-  "block.examplemod.mystery_block": "Mystery"
+  "item.examplemod.axe_tool": "Baller Axe",
+  "item.examplemod.hoe_tool": "Decent Hoe",
+  "item.examplemod.pickaxe_tool": "Ripe Pickaxe",
+  "item.examplemod.shovel_tool": "Shovel. That's it.",
+  "item.examplemod.sword_tool": "EXCALIBURRRR",
+  "block.examplemod.cow_block": "Cow",
+  "itemGroup.mods": "Mods"
 }

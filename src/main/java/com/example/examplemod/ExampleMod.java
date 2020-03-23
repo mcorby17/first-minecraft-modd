@@ -2,13 +2,12 @@ package com.example.examplemod;
 
 import com.example.examplemod.lists.BlockList;
 import com.example.examplemod.lists.ItemList;
+import com.example.examplemod.lists.ToolMaterialList;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
+import net.minecraft.item.*;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
@@ -32,8 +31,8 @@ public class ExampleMod
 {
     // Directly reference a log4j logger.
     private static final Logger LOGGER = LogManager.getLogger();
-
     public static final String MOD_ID = "examplemod";
+    private static final ModItemGroup mod_group = new ModItemGroup();
 
     public ExampleMod() {
         // Register the setup method for modloading
@@ -89,26 +88,52 @@ public class ExampleMod
         @SubscribeEvent
         public static void onItemsRegistry(final RegistryEvent.Register<Item> blockItemEvent)
         {
-            ItemList.bomb_item = new Item(new Item.Properties().group(ItemGroup.COMBAT));
-            ItemList.bomb_item.setRegistryName(new ResourceLocation(ExampleMod.MOD_ID, "bomb_item"));
+            ItemList.bomb_item = new Item(new Item.Properties().group(mod_group));
+            ItemList.bomb_item.setRegistryName(new ResourceLocation(ExampleMod.MOD_ID, ItemList.bomb_item_name));
 
-            ItemList.mystery_block = new BlockItem(BlockList.mystery_block, new Item.Properties().group(ItemGroup.MISC));
-            ItemList.mystery_block.setRegistryName(new ResourceLocation(ExampleMod.MOD_ID, "mystery_block"));
+            ItemList.cow_block = new BlockItem(BlockList.cow_block, new Item.Properties().group(mod_group));
+            ItemList.cow_block.setRegistryName(new ResourceLocation(ExampleMod.MOD_ID, BlockList.cow_block_name));
 
-            blockItemEvent.getRegistry().registerAll(ItemList.bomb_item, ItemList.mystery_block);
+            // TODO figure out WTF each of these fields does in the thingItem constructors
+            ItemList.axe_tool = new AxeItem(ToolMaterialList.THAT_GOOD_STUFF, -1.0f, 6.0f,
+                    new Item.Properties().group(mod_group));
+            ItemList.axe_tool.setRegistryName(new ResourceLocation(MOD_ID, "axe_tool"));
+
+            ItemList.hoe_tool = new HoeItem(ToolMaterialList.THAT_GOOD_STUFF, 6.0f, new Item.Properties().group(mod_group));
+            ItemList.hoe_tool.setRegistryName(new ResourceLocation(MOD_ID, "hoe_tool"));
+
+            ItemList.pickaxe_tool = new PickaxeItem(ToolMaterialList.THAT_GOOD_STUFF, -2, 6.0f,
+                    new Item.Properties().group(mod_group));
+            ItemList.pickaxe_tool.setRegistryName(new ResourceLocation(MOD_ID, "pickaxe_tool"));
+
+            ItemList.shovel_tool = new ShovelItem(ToolMaterialList.THAT_GOOD_STUFF, -3.0f, 6.0f,
+                    new Item.Properties().group(mod_group));
+            ItemList.shovel_tool.setRegistryName(new ResourceLocation(MOD_ID, "shovel_tool"));
+
+            ItemList.sword_tool = new SwordItem(ToolMaterialList.THAT_GOOD_STUFF, 0, 6.0f,
+                    new Item.Properties().group(mod_group));
+            ItemList.sword_tool.setRegistryName(new ResourceLocation(MOD_ID, "sword_tool"));
+
+            blockItemEvent.getRegistry().registerAll(ItemList.bomb_item,
+                                                     ItemList.cow_block,
+                                                     ItemList.axe_tool,
+                                                     ItemList.hoe_tool,
+                                                     ItemList.pickaxe_tool,
+                                                     ItemList.shovel_tool,
+                                                     ItemList.sword_tool);
 
             LOGGER.info("Items registered.");
         }
 
         @SubscribeEvent
         public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent) {
-            BlockList.mystery_block = new Block(Block.Properties.create(Material.CAKE)
+            BlockList.cow_block = new Block(Block.Properties.create(Material.CAKE)
                                                 .hardnessAndResistance(2.0f, 2.0f)
                                                 .sound(SoundType.GLASS));
 
-            BlockList.mystery_block.setRegistryName(new ResourceLocation(MOD_ID, "mystery_block"));
+            BlockList.cow_block.setRegistryName(new ResourceLocation(MOD_ID, BlockList.cow_block_name));
 
-            blockRegistryEvent.getRegistry().registerAll(BlockList.mystery_block);
+            blockRegistryEvent.getRegistry().registerAll(BlockList.cow_block);
 
             LOGGER.info("Blocks registered.");
         }

@@ -1,6 +1,6 @@
 {
   "parent": "block/cube_all",
   "textures": {
-    "all": "examplemod:block/mystery_block"
+    "all": "examplemod:block/cow_block"
   }
 }
